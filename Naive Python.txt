@@ -1,0 +1,40 @@
+
+
+import numpy as np
+import pandas as pd
+import urllib
+import sklearn
+from sklearn.naive_bayes import BernoulliNB
+from sklearn.naive_bayes import GaussianNB
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.cross_validation import train_test_split
+from sklearn import metrics
+from sklearn.metrics import accuracy_score
+from sklearn.datasets import load_iris
+iris = load_iris()
+# store the feature matrix (X) and response vector (y)
+X = iris.data
+y = iris.target
+print(iris)
+X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=.33,random_state=17)
+
+BernNB=BernoulliNB(binarize=0.1)
+BernNB.fit(X_train,y_train)
+print(BernNB)
+y_except=y_test
+y_pred=BernNB.predict(X_test)
+print(accuracy_score(y_except,y_pred))
+
+MultiNB=MultinomialNB()
+MultiNB.fit(X_train,y_train)
+print(MultiNB)
+y_pred=MultiNB.predict(X_test)
+print(accuracy_score(y_except,y_pred))
+
+GausNB=GaussianNB()
+GausNB.fit(X_train,y_train)
+print(GausNB)
+y_pred=GausNB.predict(X_test)
+print(y_pred)
+print(accuracy_score(y_except,y_pred))
+
