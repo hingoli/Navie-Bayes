@@ -1,0 +1,16 @@
+mushroom<-read.csv("C:/Users/arush/OneDrive/Desktop/mushroom.data")
+View(mushroom)
+table(mushroom$p)
+data<-sample(2,nrow(mushroom),replace=TRUE,prob=c(0.67,0.33))
+trainD<-mushroom[data==1,]
+testD<-mushroom[data==2,]
+nrow(trainD)
+nrow(testD)
+library(e1071)
+library(rminer)
+e1071model<-naiveBayes(p~.,data=trainD)
+e1071prediction<-predict(e1071model,testD)
+mmetric(testD$p,e1071prediction,c("ACC","PRECISION"))
+table(e1071prediction)
+e1071model
+plot(e1071prediction)
